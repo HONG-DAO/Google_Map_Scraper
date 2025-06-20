@@ -379,7 +379,12 @@ def create_images_csv(path, places, fields):
 
 
 def transform_places_json(places, fields):
-    new_results = [sort_dict_by_keys(x, fields) for x in places]
+    # Always include place_id in the fields if it's not already there
+    fields_with_place_id = list(fields)
+    if Fields.PLACE_ID not in fields_with_place_id:
+        fields_with_place_id.insert(0, Fields.PLACE_ID)  # Add at the beginning
+    
+    new_results = [sort_dict_by_keys(x, fields_with_place_id) for x in places]
     return new_results
 
 def create_places_json(path, places, fields):
