@@ -1,10 +1,50 @@
 from src.gmaps import Gmaps
-
-star_it = '''Help us reach 850 stars, and we'll break the GMaps 120 limit, giving you 150+ to 250+ potential customers per search.
-             Star us to make it happen ⭐! https://github.com/omkarcloud/google-maps-scraper/'''
-
+from src.fields import Fields
+from src import write_output as write_output_module
 queries = [
-   "web developers in bangalore"
+   "nhà hàng"
 ]
 
-Gmaps.places(queries, max=5)
+all_places = Gmaps.places(
+    queries,
+    max=5,
+    fields=[
+        Fields.NAME,
+        Fields.DESCRIPTION,
+        Fields.ADDRESS,
+        Fields.RATING,
+        Fields.WEBSITE,
+        Fields.REVIEWS,
+        Fields.WORKDAY_TIMING,
+        Fields.CLOSED_ON,
+        Fields.CATEGORIES,
+        Fields.IMAGES,
+    ],
+    scrape_reviews=True,
+    reviews_max=29,
+    lang="vi",
+    convert_to_english=False,
+)
+# Add this in your main script
+for result in all_places:
+    for place in result["places"]:
+        print(f"Place: {place.get('name', 'Unknown')}")
+        print(f"Reviews count: {place.get('reviews', 'Not found')}")
+        print(f"Has reviews field: {'reviews' in place}")
+        print("---")
+places_only = []
+for result in all_places:
+    places_only.extend(result["places"])
+
+write_output_module.write_output("nhà hàng", places_only, [
+        Fields.NAME,
+        Fields.DESCRIPTION,
+        Fields.ADDRESS,
+        Fields.RATING,
+        Fields.WEBSITE,
+        Fields.REVIEWS,
+        Fields.WORKDAY_TIMING,
+        Fields.CLOSED_ON,
+        Fields.CATEGORIES,
+        Fields.IMAGES,
+])
