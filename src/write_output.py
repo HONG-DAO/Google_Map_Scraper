@@ -384,7 +384,9 @@ def transform_places_json(places, fields):
 
 def create_places_json(path, places, fields):
     data = transform_places_json(places, fields)
-    bt.write_json(data, path, False )
+    import json
+    with open(path, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
 
 def format(query_kebab, type, name):

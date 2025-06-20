@@ -4,7 +4,7 @@ from botasaurus.cache import DontCache
 from src.extract_data import extract_data
 from src.scraper_utils import create_search_link, perform_visit
 from src.utils import convert_unicode_dict_to_ascii_dict, unique_strings
-from .reviews_scraper import GoogleMapsAPIScraper
+# from .reviews_scraper import GoogleMapsAPIScraper
 from time import sleep, time
 from botasaurus.utils import retry_if_is_error
 from selenium.common.exceptions import  StaleElementReferenceException
@@ -67,12 +67,12 @@ def scrape_reviews(requests: AntiDetectRequests, data):
     convert_to_english = data["convert_to_english"]
     
     processed = []
-    with GoogleMapsAPIScraper() as scraper:
+    # with GoogleMapsAPIScraper() as scraper:
 
-        result = scraper.scrape_reviews(
-            link,  max_r, lang, sort_by=reviews_sort
-        )
-        processed = process_reviews(result, convert_to_english)
+    #     result = scraper.scrape_reviews(
+    #         link,  max_r, lang, sort_by=reviews_sort
+    #     )
+    #     processed = process_reviews(result, convert_to_english)
     
     return {"place_id":place_id, "reviews": processed}
 

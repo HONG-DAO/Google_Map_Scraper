@@ -2,7 +2,7 @@ from src.gmaps import Gmaps
 from src.fields import Fields
 from src import write_output as write_output_module
 queries = [
-   "nhà hàng"
+   "quán ăn vặt quận 3"
 ]
 
 all_places = Gmaps.places(
@@ -36,7 +36,7 @@ places_only = []
 for result in all_places:
     places_only.extend(result["places"])
 
-write_output_module.write_output("nhà hàng", places_only, [
+write_output_module.write_output("quán ăn vặt quận 3", places_only, [
         Fields.NAME,
         Fields.DESCRIPTION,
         Fields.ADDRESS,
